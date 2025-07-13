@@ -1,0 +1,35 @@
+.bubble-loader {
+  width: 10px;
+  height: 10px;
+  background-color: #b6beb5; 
+  border-radius: 50%;
+  animation: bubblePulse 1.2s infinite ease-in-out;
+  margin: 10px auto;
+}
+
+@keyframes bubblePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+body {
+  line-height: 22px;
+  font-size: 13px;
+  overflow-x: hidden;
+
+}
+* {
+  font-family: "Segoe UI Emoji";
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
