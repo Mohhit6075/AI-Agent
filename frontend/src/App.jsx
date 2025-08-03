@@ -6,6 +6,7 @@ import FeaturesPanel from "./components/FeaturesPanel";
 import MarkdownRenderer from "./components/MarkdownRenderer ";
 import { MoveDown } from 'lucide-react';
 
+
 function App() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
@@ -28,12 +29,17 @@ function App() {
     const signal = abortControllerRef.current.signal;
 
     try {
-      const resp = await fetch("http://localhost:4000/chat", {
+      const resp = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newHistory }),
         signal,
       });
+      if (!resp.ok) {
+  const text = await resp.text();
+  console.error("Server returned non-200 response:", resp.status, text);
+  throw new Error("API request failed");
+}
       const data = await resp.json();
 
       setHistory((h) => {
@@ -47,7 +53,7 @@ function App() {
       console.log("data.data.text: ", data.data.text);
       console.log("data.data.content: ", data.data[0]);
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
     setLoading(false);
     abortControllerRef.current = null;
