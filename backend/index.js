@@ -19,12 +19,14 @@ import { Buffer } from "buffer";
 
 dotenv.config();
 const app = express();
+app.use(express.json());
 app.use(cors());
 app.use((req, res, next) => {
-  if (req.path === "/messages") {
-    return next(); 
-  }
-  express.json()(req, res, next);
+   res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;"
+  );
+  next();
 });
 
 const upload = multer({ storage: multer.memoryStorage() });
