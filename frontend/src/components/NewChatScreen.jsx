@@ -1,10 +1,8 @@
-// NewChatScreen.jsx
-import React from "react";
 
 const NewChatScreen = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-full mt-28 text-center text-gray-200">
-      <h1 className="text-4xl font-bold mb-4">Welcome to <span className="text-green-400">MohhitGPT</span> 🤖</h1>
+    <div className="flex flex-col items-center justify-end text-center text-gray-200">
+      <h1 className="text-4xl font-bold mb-4">Welcome to <span className="text-green-400">MS Agent</span> 🤖</h1>
       <p className="text-lg max-w-xl">
         Ask me anything tech, code, AI, or roast-worthy — I'm your AI buddy 😊
       </p>

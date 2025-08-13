@@ -22,14 +22,15 @@
 body {
   line-height: 22px;
   font-size: 13px;
-  overflow-x: hidden;
+
 
 }
+
+
 * {
   font-family: "Segoe UI Emoji";
   scroll-behavior: smooth;
-}
+  text-wrap: wrap;
+  word-wrap: break-word;
 
-::-webkit-scrollbar {
-  display: none;
 }

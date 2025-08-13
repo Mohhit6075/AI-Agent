@@ -4,6 +4,7 @@ import { TwitterApi } from "twitter-api-v2";
 import nodemailer from "nodemailer";
 import PDFDocument from 'pdfkit';
 import { PassThrough } from 'stream';
+import { marked } from 'marked';
 config();
 
 const twitterClient = new TwitterApi({
@@ -86,7 +87,7 @@ const transporter = nodemailer.createTransport({
 
 export async function sendEmail({ to, subject, text }) {
   const mailOptions = {
-    from: "Mohhit Agent 👾",
+    from: "MS Agent 👾",
     to,
     subject,
     text,
@@ -136,7 +137,32 @@ export async function editExistingPDF(fileBuffer, newText) {
   return await pdfDoc.save();
 }
 
-export async function generatePDFfromText(text) {
+function markdownToPlainText(markdown) {
+  const renderer = {
+    paragraph: (text) => text + "\n\n",
+    strong: (text) => text,
+    em: (text) => text,
+    codespan: (text) => text,
+    code: (code) => code + "\n\n",
+    heading: (text) => text + "\n\n",
+    link: (href, title, text) => `${text} (${href})`,
+    image: (href, title, text) => `[Image: ${text}] (${href})`,
+    list: (body) => body + "\n",
+    listitem: (text) => `- ${text}\n`,
+    blockquote: (text) => `> ${text}\n`,
+    hr: () => "\n----------------------\n",
+    br: () => "\n",
+    html: () => "",
+    table: () => "",
+    tablerow: () => "",
+    tablecell: () => "",
+  };
+
+  marked.use({ renderer });
+  return marked.parse(markdown);
+}
+
+export async function generatePDFfromText(markdownText) {
   return new Promise((resolve, reject) => {
     try {
       const doc = new PDFDocument();
@@ -152,7 +178,9 @@ export async function generatePDFfromText(text) {
       doc.on('error', reject);
 
       doc.pipe(stream);
-      doc.fontSize(14).fillColor('black').text(text, {
+     const plainText = markdownToPlainText(markdownText);
+
+      doc.fontSize(13).fillColor('black').text(markdownText, {
         align: 'left',
         lineGap: 6,
         indent: 20,

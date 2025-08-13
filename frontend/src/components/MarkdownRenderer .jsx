@@ -5,7 +5,7 @@ import CopyButton from "./CopyButton";
 
 const MarkdownRenderer = ({ content }) => {
   return (
-    <div className="max-w-none text-white text-sm">
+    <div className="max-w-3xl text-white text-sm mx-auto">
       <ReactMarkdown
         rehypePlugins={[rehypeHighlight]}
         components={{
@@ -54,7 +54,7 @@ const MarkdownRenderer = ({ content }) => {
               </code>
             ) : (
               <code
-                className={`px-2 text-[13px] bg-[#353535] tracking-wide pb-1 rounded-md ${className}`}
+                className={`px-2 text-[13px] bg-white/10 tracking-wide pb-1 rounded-md ${className}`}
                 {...props}
               >
                 {children}
@@ -69,15 +69,15 @@ const MarkdownRenderer = ({ content }) => {
             const language = className.replace("hljs language-", "") || "text";
 
             return (
-              <div className="mb-5 mt-5 bg-[#0d1117] rounded-lg overflow-hidden border border-zinc-700">
+              <div className="mb-5 mt-5 bg-[#0d1117] rounded-lg overflow-hidden border border-zinc-700 self-center mx-auto">
                 {/* 🏷️ Language Label */}
-                <div className="relative px-4 py-1 text-xs font-mono bg-zinc-800 text-zinc-400 border-b border-zinc-700 tracking-wider">
+                <div className="relative px-4 py-1 text-xs font-mono bg-white/5 text-zinc-400 border-b border-zinc-700 tracking-wider">
                   <span>{language}</span>
-                  <CopyButton text={children} user="" model="model"  />
+                  <CopyButton text={`\`\`\`${content.split("```")[1]}\`\`\``} user="" model="assistant"  />
                 </div>
 
                 {/* 💻 Actual Code Block */}
-                <pre className="overflow-x-auto">
+                <pre className="overflow-x-hidden ">
                   {children}
                 </pre>
               </div>
@@ -90,7 +90,7 @@ const MarkdownRenderer = ({ content }) => {
               <p
                 className={
                   isInsideList
-                    ? "" // don't style list paragraph
+                    ? "" 
                     : "mb-3 leading-relaxed text-gray-100 text-xs tracking-wide"
                 }
                 {...props}
@@ -111,7 +111,7 @@ const MarkdownRenderer = ({ content }) => {
 
         }}
       >
-        {content}
+          {typeof content === 'string' ? content : JSON.stringify(content)}
       </ReactMarkdown>
     </div>
   );

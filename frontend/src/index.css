@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+
+/* Hard fallback to dark even if Tailwind didn't load yet */
+:root { color-scheme: dark; }
+
+
+
+::-webkit-scrollbar { width: 6px; color: rgba(255,255,255,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
