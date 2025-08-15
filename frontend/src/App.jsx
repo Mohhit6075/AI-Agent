@@ -136,7 +136,7 @@ function App() {
     <>
       <div className="bg-[#0f1115] h-fit body">
         <div className=" fixed inset-0 bg-[radial-gradient(70%_60%_at_30%_0%,rgba(16,185,129,0.14),rgba(0,0,0,0)_60%),radial-gradient(60%_50%_at_80%_10%,rgba(147,51,234,0.12),rgba(0,0,0,0)_55%)]" />
-        <header className="sticky top-0 z-30 w-full h-[9%] pb-3 flex  justify-between pt-2 px-8  border-b border-white/5 bg-[#0d0f13]/50 backdrop-blur-3xl backdrop-opacity-90">
+        <header className="sticky top-0 z-30 w-full h-[9%] pb-3 flex  justify-between pt-2 px-8  border-b border-white/5 bg-[#0d0f13]/60 backdrop-blur-3xl backdrop-opacity-90">
           <h2 className="text-2xl font-bold text-white flex gap-2 items-center">
             <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-emerald-500 to-violet-600">
               <Bot className="h-4 w-4 text-white" />
@@ -210,9 +210,12 @@ function App() {
                                   </span>
                                 </a>
                               ) : (
-                                <MarkdownRenderer
-                                  content={m.parts?.[0]?.text}
-                                />
+                                <div className="flex flex-col gap-2">
+                                  {m.role === "model" && (<Bot className="h-4 w-4 text-green-500" />)}
+                                  <MarkdownRenderer
+                                    content={m.parts?.[0]?.text}
+                                  />
+                                </div>
                               )}
 
                               <CopyButton

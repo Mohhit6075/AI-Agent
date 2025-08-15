@@ -20,7 +20,13 @@ import { Buffer } from "buffer";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: process.env.FRONTEND_URL, // Adjust this to your frontend URL in production
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }
+));
 app.use((req, res, next) => {
   if (req.path === "/messages") {
     return next(); 
